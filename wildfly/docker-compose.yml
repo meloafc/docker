@@ -1,0 +1,11 @@
+version: "3"
+services:
+  wildfly:
+    container_name: wildfly
+    build: . # build from Dockerfile in folder ./
+    ports:
+    - "8083:8080"
+    - "9990:9990"
+    - "8787:8787"
+    environment:
+    - JAVA_OPTS=-server -Xms512m -Xmx2048m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -XX:+UseAdaptiveSizePolicy -XX:MaxMetaspaceSize=1024m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true-Djava.net.preferIPv4Stack=true
