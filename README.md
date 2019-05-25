@@ -1,20 +1,31 @@
-# Docker
+# Local Docker Registry
 
-`run` cria um novo container de uma imagem, e executa o container.
+Iniciar um docker registry local:
 ```
-docker run IMAGE_ID
-```
-
-`start` inicia um container parado(`stop`) anteriormente.
-```
-docker start CONTAINER_ID
+cd images/registry
+docker-compose up -d
 ```
 
+Listar repositórios locais: `http://localhost:5000/v2/_catalog`
 
-`ps` mostra os containers em execução.
+Criar uma nova imagem para enviar para o registry local:
 ```
-docker ps
+cd images/hello-world
+docker build -t simple-hello-world .
+docker run -d -p 3000:5000 simple-hello-world
 ```
+
+Criar tag da imagem gerada:
+```
+docker tag simple-hello-world:latest localhost:5000/simple-hello-world:latest
+```
+
+Fazer push da imagem:
+```
+docker push localhost:5000/simple-hello-world
+```
+
+Listar tags: `http://localhost:5000/v2/simple-hello-world/tags/list`
 
 # Docker UI
 1. https://portainer.io/
